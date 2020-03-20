@@ -21,6 +21,7 @@ int main()
 			if (evnt.type == sf::Event::Closed)
 				window.close();
 			if (evnt.type == sf::Event::KeyReleased)
+			{
 				if (evnt.key.code == sf::Keyboard::Space)
 				{
 					game.Clean();
@@ -28,6 +29,9 @@ int main()
 					game.alive = true;
 					game.UpdateString();
 				}
+				if (evnt.key.code == sf::Keyboard::Tilde)
+					game.ToggleDev();
+			}
 			if (evnt.type == sf::Event::KeyPressed)
 				if (evnt.key.code == sf::Keyboard::Escape)
 					window.close();
@@ -47,6 +51,7 @@ int main()
 
 		window.clear(sf::Color(0,0,0));
 		game.Draw(window);
+		game.DevDraw(window);
 		if (!game.alive)
 			game.DrawGameOver(window);
 		window.display();

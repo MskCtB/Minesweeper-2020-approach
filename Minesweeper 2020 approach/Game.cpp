@@ -2,7 +2,7 @@
 
 
 
-Game::Game() : amount(12), alive(true), AtoS(12), colour(192), flash (8), win(false)
+Game::Game() : amount(12), alive(true), AtoS(12), colour(192), flash (8), win(false), canClick(true), dev(false)
 {
 	//clock.restart().asSeconds;
 	srand(time(NULL));
@@ -83,6 +83,7 @@ void Game::Clean()
 		}
 	}
 	win = false;
+	canClick = true;
 }
 
 void Game::RightClick(sf::Vector2i mouse)
@@ -92,7 +93,7 @@ void Game::RightClick(sf::Vector2i mouse)
 		for (int j = 0; j < 8; j++)
 		{
 			if (mouse.x >= positions[i][j].x && positions[i][j].y <= mouse.y
-				&& positions[i][j].x + CUBE >= mouse.x && positions[i][j].y + CUBE >= mouse.y && alive)
+				&& positions[i][j].x + CUBE >= mouse.x && positions[i][j].y + CUBE >= mouse.y && canClick)
 			{
 				arr[i][j].RightClick();
 				if (arr[i][j].CheckFlag() && arr[i][j].CheckCover())
@@ -110,21 +111,20 @@ void Game::RightClick(sf::Vector2i mouse)
 
 void Game::LeftClick(sf::Vector2i mouse)
 {
-	sf::Vector2i temp;
+
 	for (int i = 0; i < 8; i++)
 	{
 		for (int j = 0; j < 8; j++)
 		{
 			if (positions[i][j].x <= mouse.x && positions[i][j].y <= mouse.y
-				&& positions[i][j].x + CUBE >= mouse.x && positions[i][j].y + CUBE >= mouse.y && alive)
+				&& positions[i][j].x + CUBE >= mouse.x && positions[i][j].y + CUBE >= mouse.y && canClick)
 			{
-				temp.x = j;
-				temp.y = i;
+				if (!arr[i][j].CheckFlag())
+					Uncover(i, j);
+				return;
 			}
 		}
 	}
-	if (!arr[temp.y][temp.x].CheckFlag())
-		Uncover(temp.y, temp.x);
 }
 
 void Game::SetBombs()
@@ -297,6 +297,7 @@ void Game::Uncover(int y, int x)
 		alive = false;
 		arr[y][x].SetSprite(loader.GetTexture(3));
 		GO.setString("Game Over");
+		canClick = false;
 	}
 	if (y >= 0 && y <= 7 && x >= 0 && x <= 7)
 	{
@@ -556,5 +557,6 @@ void Game::Win()
 	{
 		GO.setString("YOU WIN!");
 		win = true;
+		canClick = false;
 	}
 }

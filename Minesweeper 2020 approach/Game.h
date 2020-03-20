@@ -23,6 +23,8 @@ public:
 	void DrawGameOver(sf::RenderWindow& window);
 	void Colour();
 	void Win();
+	void ToggleDev() { dev = !dev; }
+	void DevDraw(sf::RenderWindow& window) { if (dev) for (int i = 0; i < 8; i++) for (int j = 0; j < 8; j++) arr[i][j].DevDraw(window); }
 
 	bool alive;
 
@@ -40,5 +42,7 @@ private:
 	sf::Text GO2;
 	int colour, flash;
 	bool win;
+	bool canClick;
+	bool dev;
 };
 

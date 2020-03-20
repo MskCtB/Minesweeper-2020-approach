@@ -24,6 +24,7 @@ public:
 	bool CheckFlag() { return isFlagged; }
 	bool CheckCover() { return isCovered; }
 	void Reveal() { isCovered = false; body.setFillColor(sf::Color(128, 128, 128)); }
+	void DevDraw(sf::RenderWindow& window) { window.draw(sprite); }
 
 
 	void Clean();
