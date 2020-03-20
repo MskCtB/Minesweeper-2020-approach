@@ -3,7 +3,7 @@
 int main()
 {
 	int Window_Size = (static_cast<int>(CUBE) + 2) * 8 + 2;
-	sf::RenderWindow window(sf::VideoMode(Window_Size, Window_Size + CUBE), "Minesweeper", sf::Style::Close);
+	sf::RenderWindow window(sf::VideoMode(Window_Size, Window_Size + CUBE + 2.0f), "Minesweeper", sf::Style::Close);
 	window.setFramerateLimit(60);
 	Game game;
 	
