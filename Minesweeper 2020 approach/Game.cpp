@@ -2,7 +2,7 @@
 
 
 
-Game::Game() : amount(12), alive(true), AtoS(12), colour(192), flash (8)
+Game::Game() : amount(12), alive(true), AtoS(12), colour(192), flash (8), win(false)
 {
 	//clock.restart().asSeconds;
 	srand(time(NULL));
@@ -38,51 +38,72 @@ Game::~Game()
 void Game::Set_Up()
 {
 	sf::Vector2i c;
-	int y = 0;
-	for (int i = 0; i < 64; i++)
+	for (int i = 0; i < 8; i++)
 	{
-		if (i > 0 && !(i % 8))
-			y++;
-		c.x = i / 8; //y
-		c.y = i % 8; //x
-		arr[i / 8][i % 8].Set(sf::Vector2f((CUBE * (i % 8)) + (CUBE / 2.0f + 2.0f) + (float)(2 * (i % 8)),
-			CUBE + (CUBE * y) + (CUBE / 2.0f + 2.0f) + (float)(2 * y)), c);
-		positions[i / 8][i % 8].x = (CUBE * (i % 8)) + (2.0f) + (float)(2 * (i % 8));
-		positions[i / 8][i % 8].y = CUBE + (CUBE * y) + (2.0f) + (float)(2 * y);
-		arr[i / 8][i % 8].SetFont(loader.GetFont());
+		for (int j = 0; j < 8; j++)
+		{
+			c.x = i; //y
+			c.y = j; //x
+			arr[i][j].Set(sf::Vector2f((CUBE * (j)) + (CUBE / 2.0f + 2.0f) + (float)(2 * (j)),
+										CUBE + (CUBE * (i)) + (CUBE / 2.0f + 2.0f) + (float)(2 * ( i + 1))));
+			positions[i][j].x = (CUBE * (j)) + (2.0f) + (float)(2 * (j));
+			positions[i][j].y = CUBE + (CUBE * (i)) + (2.0f) + (float)(2 * (i));
+			arr[i][j].SetFont(loader.GetFont());
 
-		arr[i / 8][i % 8].SetFlagSprite(loader.GetTexture(1));
+			arr[i][j].SetFlagSprite(loader.GetTexture(1));
+		}
 	}
 	
 	SetBombs();
 	
 }
 
+void Game::Draw(sf::RenderWindow & window)
+{
+	for (int i = 0; i < 8; i++) 
+		for (int j = 0; j < 8; j++)
+			arr[i][j].Draw(window);
+	window.draw(BombCounter);
+	if (win)
+	{
+		window.draw(GO);
+		window.draw(GO2);
+
+	}
+}
+
 void Game::Clean()
 {
-	for (int i = 0; i < 64; i++)
+	for (int i = 0; i < 8; i++)
 	{
-		arr[i / 8][i % 8].Clean();
-		arr[i / 8][i % 8].SetSprite(loader.GetTexture(0));
+		for (int j = 0; j < 8; j++)
+		{
+			arr[i][j].Clean();
+			arr[i][j].SetSprite(loader.GetTexture(0));
+		}
 	}
+	win = false;
 }
 
 void Game::RightClick(sf::Vector2i mouse)
 {
-	for (int i = 0; i < 64; i++)
+	for (int i = 0; i < 8; i++)
 	{
-		if (mouse.x >= positions[i/8][i%8].x && positions[i / 8][i % 8].y <= mouse.y
-			&& positions[i / 8][i % 8].x + CUBE >= mouse.x && positions[i / 8][i % 8].y + CUBE >= mouse.y && alive)
+		for (int j = 0; j < 8; j++)
 		{
-			arr[i / 8][i % 8].RightClick();	
-			if (arr[i / 8][i % 8].CheckFlag() && arr[i/8][i%8].CheckCover())
-				AtoS--;
-			else if(!arr[i / 8][i % 8].CheckFlag() && arr[i / 8][i % 8].CheckCover())
-				AtoS++;
-			string = std::to_string(AtoS);
-			if (AtoS < 0)
-				string = "0";
-			BombCounter.setString("Bombs: " + string);
+			if (mouse.x >= positions[i][j].x && positions[i][j].y <= mouse.y
+				&& positions[i][j].x + CUBE >= mouse.x && positions[i][j].y + CUBE >= mouse.y && alive)
+			{
+				arr[i][j].RightClick();
+				if (arr[i][j].CheckFlag() && arr[i][j].CheckCover())
+					AtoS--;
+				else if (!arr[i][j].CheckFlag() && arr[i][j].CheckCover())
+					AtoS++;
+				string = std::to_string(AtoS);
+				if (AtoS < 0)
+					string = "0";
+				BombCounter.setString("Bombs: " + string);
+			}
 		}
 	}
 }
@@ -90,16 +111,20 @@ void Game::RightClick(sf::Vector2i mouse)
 void Game::LeftClick(sf::Vector2i mouse)
 {
 	sf::Vector2i temp;
-	for (int i = 0; i < 64; i++)
+	for (int i = 0; i < 8; i++)
 	{
-		if (positions[i / 8][i % 8].x <= mouse.x && positions[i / 8][i % 8].y <= mouse.y
-			&& positions[i / 8][i % 8].x + CUBE >= mouse.x && positions[i / 8][i % 8].y + CUBE >= mouse.y && alive)
+		for (int j = 0; j < 8; j++)
 		{
-			temp.x = i % 8;
-			temp.y = i / 8;
+			if (positions[i][j].x <= mouse.x && positions[i][j].y <= mouse.y
+				&& positions[i][j].x + CUBE >= mouse.x && positions[i][j].y + CUBE >= mouse.y && alive)
+			{
+				temp.x = j;
+				temp.y = i;
+			}
 		}
 	}
-	Uncover(temp.y, temp.x);
+	if (!arr[temp.y][temp.x].CheckFlag())
+		Uncover(temp.y, temp.x);
 }
 
 void Game::SetBombs()
@@ -120,11 +145,17 @@ void Game::SetBombs()
 			}
 			arr[y][x].SetBomb();
 		}
+		arr[y][x].SetSprite(loader.GetTexture(2));
 	}
 
-	for (int i = 0; i < 64; i++)
-		if (arr[i / 8][i % 8].Status())
-			arr[i / 8][i % 8].SetSprite(loader.GetTexture(2));
+	/*for (int i = 0; i < 8; i++)
+	{
+		for (int j = 8; j < 8; j++)
+		{
+			if (arr[i][j].Status())
+				arr[i][j].SetSprite(loader.GetTexture(2));
+		}
+	}*/
 
 	for (int i = 0; i < 8; i++)
 		for (int j = 0; j < 8; j++)
@@ -265,6 +296,7 @@ void Game::Uncover(int y, int x)
 	{
 		alive = false;
 		arr[y][x].SetSprite(loader.GetTexture(3));
+		GO.setString("Game Over");
 	}
 	if (y >= 0 && y <= 7 && x >= 0 && x <= 7)
 	{
@@ -506,4 +538,23 @@ void Game::Colour()
 		flash = !flash;
 	GO.setFillColor(sf::Color(colour, colour, 0, 255));
 	GO2.setFillColor(sf::Color(colour, colour, 0, 255));
+}
+
+void Game::Win()
+{
+	int all = 0;
+	for (int i = 0; i < 8; i++)
+	{
+		for (int j = 0; j < 8; j++)
+		{
+			if (!arr[i][j].CheckCover() && !arr[i][j].Status())
+				all++;
+		}
+	}
+
+	if (all == 8 * 8 - amount && alive)
+	{
+		GO.setString("YOU WIN!");
+		win = true;
+	}
 }

@@ -40,6 +40,7 @@ int main()
 					game.RightClick(mouse);
 			}
 		}
+		game.Win();
 
 		if (!game.alive)
 			game.GameOver();

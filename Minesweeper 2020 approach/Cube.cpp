@@ -5,12 +5,8 @@ Cube::~Cube()
 {
 }
 
-void Cube::SetSprite(sf::Texture* texture)
-{
-	sprite.setTexture(*texture);
-}
 
-void Cube::Set(sf::Vector2f pos, sf::Vector2i coordinates)
+void Cube::Set(sf::Vector2f pos)
 {
 	
 	body.setFillColor(sf::Color(192,192,192,255));
@@ -20,7 +16,6 @@ void Cube::Set(sf::Vector2f pos, sf::Vector2i coordinates)
 	sprite.setPosition(body.getPosition());
 	flag.setOrigin(sprite.getOrigin());
 	flag.setPosition(sprite.getPosition());
-	position = coordinates;
 	number.setFillColor(sf::Color::Blue);
 	number.setPosition(body.getPosition().x - number.getCharacterSize() / 4.0f - 2.0f, body.getPosition().y - number.getCharacterSize() / 2.0f - 2.0f);
 }
@@ -83,10 +78,6 @@ void Cube::LeftClick()
 		isCovered = false;
 		body.setFillColor(sf::Color(128, 128, 128));
 	}
-	else if (isFlagged && isCovered)
-	{ }
-	else if (!isCovered)
-	{ }
 	else
 	{ }
 }

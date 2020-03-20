@@ -11,7 +11,7 @@ public:
 	Game();
 	~Game();
 	void Set_Up();
-	void Draw(sf::RenderWindow& window) { for (int i = 0; i < 64; i++) arr[i/8][i%8].Draw(window); window.draw(BombCounter); }
+	void Draw(sf::RenderWindow& window);
 	void Clean();
 	void RightClick(sf::Vector2i mouse);
 	void LeftClick(sf::Vector2i mouse);
@@ -22,6 +22,7 @@ public:
 	void UpdateString() { string = std::to_string(amount); BombCounter.setString("Bombs: " + string); }
 	void DrawGameOver(sf::RenderWindow& window);
 	void Colour();
+	void Win();
 
 	bool alive;
 
@@ -38,5 +39,6 @@ private:
 	sf::Text GO;
 	sf::Text GO2;
 	int colour, flash;
+	bool win;
 };
 

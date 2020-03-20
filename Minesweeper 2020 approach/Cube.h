@@ -12,9 +12,9 @@ public:
 			{ number.setCharacterSize(24); number.setPosition(body.getPosition()); };
 	~Cube();
 	void SetFont(sf::Font font) { this->font = font; number.setFont(this->font); }
-	void SetSprite(sf::Texture* texture);
+	void SetSprite(sf::Texture* texture) { sprite.setTexture(*texture); }
 	void SetFlagSprite(sf::Texture* texture) { flag.setTexture(*texture); }
-	void Set(sf::Vector2f pos, sf::Vector2i coordinates);
+	void Set(sf::Vector2f pos);
 	void Draw(sf::RenderWindow & window);
 	void SetBomb() { hasBomb = true; }
 	bool Status() { return hasBomb; }
@@ -36,7 +36,6 @@ private:
 	sf::Sprite sprite;
 	sf::Sprite flag;
 	sf::Text number;
-	sf::Vector2i position;
 	bool hasBomb;
 	bool isFlagged;
 	bool isCovered;
