@@ -6,4 +6,4 @@ Press >spacebar< to get a different mine layout/restart the game.
 To do:
 -add animations to explosion(?)
 -add sounds(?)
--make "colour" and "flash" variable useful as well as add functionality to "Colour" function 
+-make "colour" and "flash" variables useful as well as add functionality to "Colour" function 
