@@ -5,12 +5,14 @@
 #include <stdlib.h>
 #include <time.h>
 
+
+
 class Game
 {
 public:
 	Game();
 	~Game();
-	void Set_Up();
+	void Set_Up(int a);
 	void Draw(sf::RenderWindow& window);
 	void Clean();
 	void RightClick(sf::Vector2i mouse);
@@ -24,18 +26,17 @@ public:
 	void Colour();
 	void Win();
 	void ToggleDev() { dev = !dev; }
-	void DevDraw(sf::RenderWindow& window) { if (dev) for (int i = 0; i < 8; i++) for (int j = 0; j < 8; j++) arr[i][j].DevDraw(window); }
+	void DevDraw(sf::RenderWindow& window);
 
 	bool alive;
 
 private:
 	//sf::Clock clock;
-	sf::Vector2i positions[8][8];
+	sf::Vector2i positions[32][32];
 	int amount;
 	int AtoS;
 	std::string string;
 	Loader loader;
-	Cube arr[8][8];
 	sf::Text BombCounter;
 	sf::Font font;
 	sf::Text GO;
@@ -44,5 +45,7 @@ private:
 	bool win;
 	bool canClick;
 	bool dev;
+	int mode;
+	int n, m;
 };
 

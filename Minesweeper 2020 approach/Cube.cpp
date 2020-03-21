@@ -8,7 +8,6 @@ Cube::~Cube()
 
 void Cube::Set(sf::Vector2f pos)
 {
-	
 	body.setFillColor(sf::Color(192,192,192,255));
 	body.setOrigin(body.getSize() / 2.0f);
 	body.setPosition(pos);
