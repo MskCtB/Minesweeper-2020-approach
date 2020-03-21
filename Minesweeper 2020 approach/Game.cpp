@@ -52,13 +52,13 @@ void Game::Set_Up(int a)
 	{
 		n = 12;
 		m = 16;
-		amount = 28;
+		amount = 38;
 	}
 	else if (mode >= 2)
 	{
 		n = 16;
 		m = 24;
-		amount = 44;
+		amount = 78;
 	}
 	sf::Vector2i c;
 	for (int i = 0; i < n; i++)
@@ -85,13 +85,13 @@ void Game::Draw(sf::RenderWindow & window)
 {
 	if (mode <= 0)
 	{
-		GO.setPosition(window.getSize().x / 2.0f - (window.getSize().x / 4.0f), window.getSize().y / 2.0f);
-		GO2.setPosition(window.getSize().x / 2.0f - (window.getSize().x / 4.0f), window.getSize().y / 2.0f + CUBE);
+		GO.setPosition(window.getSize().x / 2.0f - (window.getSize().x / 4.0f) - 15.0f, window.getSize().y / 2.0f - 40.0f);
+		GO2.setPosition(window.getSize().x / 2.0f - (window.getSize().x / 4.0f) - 40.0f, window.getSize().y / 2.0f + CUBE - 40.0f);
 	}
 	else if (mode == 1)
 	{
-		GO.setPosition(window.getSize().x / 2.0f - (window.getSize().x / 4.0f), window.getSize().y / 2.0f);
-		GO2.setPosition(window.getSize().x / 2.0f - (window.getSize().x / 4.0f), window.getSize().y / 2.0f + CUBE);
+		GO.setPosition(window.getSize().x / 2.0f - (window.getSize().x / 6.0f) + 10.0f, window.getSize().y / 2.0f - 30.0f);
+		GO2.setPosition(window.getSize().x / 2.0f - (window.getSize().x / 6.0f) - 15.0f, window.getSize().y / 2.0f + CUBE - 30.0f);
 	}
 	else if (mode >= 2)
 	{

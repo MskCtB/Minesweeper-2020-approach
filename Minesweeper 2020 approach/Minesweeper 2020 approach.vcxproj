@@ -171,6 +171,15 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="Loader.h" />
     <ClInclude Include="Menu.h" />
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Minesweeper 2020 approach.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Bomb.png" />
+    <Image Include="Icon.ico" />
+    <Image Include="icon2.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

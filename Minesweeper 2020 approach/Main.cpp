@@ -1,6 +1,8 @@
 #include "Game.h"
 #include "Menu.h"
 
+
+
 int main()
 {
 	int Window_Size_X = (static_cast<int>(CUBE) + 2) * 16 + 2;
