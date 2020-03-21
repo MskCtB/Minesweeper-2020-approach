@@ -52,13 +52,13 @@ void Game::Set_Up(int a)
 	{
 		n = 12;
 		m = 16;
-		amount = 38;
+		amount = 30;
 	}
 	else if (mode >= 2)
 	{
 		n = 16;
 		m = 24;
-		amount = 78;
+		amount = 62;
 	}
 	sf::Vector2i c;
 	for (int i = 0; i < n; i++)
