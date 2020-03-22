@@ -10,6 +10,36 @@ c:\users\user\desktop\vs\minesweeper 2020 approach\minesweeper 2020 approach\gam
           [
               T=int
           ]
+  Main.cpp
+c:\users\user\desktop\vs\minesweeper 2020 approach\minesweeper 2020 approach\main.cpp(9): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+c:\users\user\desktop\vs\minesweeper 2020 approach\minesweeper 2020 approach\main.cpp(10): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+c:\users\user\desktop\vs\minesweeper 2020 approach\minesweeper 2020 approach\main.cpp(17): warning C4244: 'argument': conversion from 'const T' to 'T', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+          and
+          [
+              T=float
+          ]
+c:\users\user\desktop\vs\minesweeper 2020 approach\minesweeper 2020 approach\main.cpp(18): warning C4244: 'argument': conversion from 'const T' to 'T', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+          and
+          [
+              T=float
+          ]
+c:\users\user\desktop\vs\minesweeper 2020 approach\minesweeper 2020 approach\main.cpp(19): warning C4244: 'argument': conversion from 'const T' to 'T', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+          and
+          [
+              T=float
+          ]
   Generating code
   1 of 155 functions ( 0.6%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
