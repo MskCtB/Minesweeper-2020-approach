@@ -2,6 +2,7 @@
 Different approach to my old minesweeper code
 
 Press >spacebar< to get a different mine layout/restart the game.
+Press >Escape< to get back to the menu.
 
 To do:
 -add animations to explosion(?)
